@@ -1,5 +1,5 @@
-from Graph import *
-from node import *
+from Ass3_IMP.Graph import *
+from Ass3_IMP.node import *
 import argparse
 import random
 import numpy as np
@@ -192,13 +192,20 @@ def finish_worker():
         w.terminate()
 
 
+def ISE_function(graph, seedset, model):
+    if model == "IC":
+        return IC_2(graph, seedset)
+    else:
+        return LT_1(graph, seedset)
+
+
 if __name__ == '__main__':
 
     times = time.time()
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--file_name', type=str, default=file_pair_2[0])
-    parser.add_argument('-s', '--seed', type=str, default=file_pair_2[1])
-    parser.add_argument('-m', '--model', type=str, default='LT')
+    parser.add_argument('-i', '--file_name', type=str, default=file_pair_1[0])
+    parser.add_argument('-s', '--seed', type=str, default=file_pair_1[1])
+    parser.add_argument('-m', '--model', type=str, default='IC')
     parser.add_argument('-t', '--time_limit', type=int, default=60)
     args = parser.parse_args()
     file_name = args.file_name
@@ -208,7 +215,12 @@ if __name__ == '__main__':
     # print(np.random.randint(0, 10, 2) for i in range(16))
     # begin to write my code
     graph_1 = file_to_graph(file_name)
-    seedset = file_to_seeds(seed)
+    # seedset = file_to_seeds(seed)
+    seedset = [38
+,47
+,52
+,58
+,60]
     np.random.seed(114514)
     worker = []
     create_worker(worker_num, time_limit)
