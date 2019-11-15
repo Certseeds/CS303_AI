@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import time
-from code_check import CodeCheck
+from Ass1_Gomoku.code_check import CodeCheck
 def main():
     times = time.time()
    # code_checker = CodeCheck("Gomoku_first.py", 15)

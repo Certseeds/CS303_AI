@@ -1,4 +1,4 @@
-from node import *
+from Ass3_IMP.node import *
 
 
 class Graph:
