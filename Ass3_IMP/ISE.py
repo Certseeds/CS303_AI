@@ -65,23 +65,6 @@ def IC_1(graph, seed):
     return (count + len(count_set)) / 2
 
 
-def IC_2(graph, seed):
-    had_activity = set()
-    while len(seed) != 0:
-        next_seed = set()
-        for i in seed:
-            had_activity.add(i)
-        for i in seed:
-            for j in graph.nodes[i].connects:
-                node, possibility = j[0].order, j[1]
-                if np.random.rand() < possibility and node not in had_activity:
-                    next_seed.add(node)
-        seed = list(next_seed)
-    for i in seed:
-        had_activity.add(i)
-    return len(had_activity)
-
-
 def IC(graph, seed):
     count = len(seed)
     while len(seed) != 0:
@@ -124,6 +107,23 @@ def LT(graph, seed):
         for i in next_add:
             had_activity.add(i)
         addition = len(had_activity) - length1
+    return len(had_activity)
+
+
+def IC_2(graph, seed):
+    had_activity = set()
+    while len(seed) != 0:
+        next_seed = set()
+        for i in seed:
+            had_activity.add(i)
+        for i in seed:
+            for j in graph.nodes[i].connects:
+                node, possibility = j[0].order, j[1]
+                if np.random.rand() < possibility and node not in had_activity:
+                    next_seed.add(node)
+        seed = list(next_seed)
+    for i in seed:
+        had_activity.add(i)
     return len(had_activity)
 
 
@@ -206,7 +206,7 @@ if __name__ == '__main__':
     parser.add_argument('-i', '--file_name', type=str, default=file_pair_1[0])
     parser.add_argument('-s', '--seed', type=str, default=file_pair_1[1])
     parser.add_argument('-m', '--model', type=str, default='IC')
-    parser.add_argument('-t', '--time_limit', type=int, default=60)
+    parser.add_argument('-t', '--time_limit', type=int, default=10)
     args = parser.parse_args()
     file_name = args.file_name
     seed = args.seed
@@ -216,11 +216,7 @@ if __name__ == '__main__':
     # begin to write my code
     graph_1 = file_to_graph(file_name)
     # seedset = file_to_seeds(seed)
-    seedset = [38
-,47
-,52
-,58
-,60]
+    seedset = [58, 56, 53, 52, 62]
     np.random.seed(114514)
     worker = []
     create_worker(worker_num, time_limit)
